@@ -185,6 +185,7 @@ AC_CONFIG_FILES([
   src/sst/core/Makefile
   src/sst/core/libltdl/Makefile
   src/sst/core/build_info.h:src/sst/core/build_info.h.in
+  test/Makefile
 ])
 AC_OUTPUT
 
