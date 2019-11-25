@@ -4,6 +4,7 @@
 
 CC = $(MPICC)
 CXX = $(MPICXX)
+LIBCPPUTEST=/usr/local/lib/libCppUTest.a
 
 AM_CPPFLAGS =  \
 	-DTIXML_USE_STL \
@@ -226,7 +227,7 @@ sst_core_sources = \
 	cputimer.cc \
 	iouse.cc
 
-bin_PROGRAMS = sst sst-info sst-config sst-register
+bin_PROGRAMS = sst sst-info sst-config sst-register sstunit
 libexec_PROGRAMS = sstsim.x sstinfo.x
 
 sst_info_SOURCES = \
@@ -261,6 +262,10 @@ sst_register_SOURCES = \
 	env/envconfig.h \
 	env/envquery.cc \
 	env/envconfig.cc
+
+sstunit_SOURCES = \
+	$(top_srcdir)/test/exampleTest.cc \
+	$(sst_core_sources)
 
 sstsim_x_SOURCES = \
 	main.cc \
@@ -308,6 +313,26 @@ sstinfo_x_LDFLAGS = \
 	-export-dynamic \
 	$(SST_LTLIBS_ELEMLIBS)
 
+sstunit_LDADD = \
+	$(LIBLTDL) \
+	$(PYTHON_LIBS) \
+	$(ZOLTAN_LIB) \
+	$(PARMETIS_LIB) \
+	$(BOOST_LIBS) \
+	$(MPILIBS) \
+	$(TCMALLOC_LIB) \
+	-lm \
+	$(LIBCPPUTEST)
+
+sstunit_LDFLAGS = \
+	$(PARMETIS_LDFLAGS) \
+	$(ZOLTAN_LDFLAGS) \
+	$(TCMALLOC_LDFLAGS) \
+	$(BOOST_LDFLAGS) \
+        $(PYTHON_LDFLAGS) \
+	-export-dynamic \
+	$(SST_LTLIBS_ELEMLIBS)
+
 include tinyxml/Makefile.inc
 include part/Makefile.inc
 include model/Makefile.inc
@@ -316,12 +341,17 @@ include impl/Makefile.inc
 if USE_LIBZ
 sstsim_x_LDADD += $(LIBZ_LIBS)
 sstinfo_x_LDADD += $(LIBZ_LIBS)
+sstunit_LDADD += $(LIBZ_LIBS)
 endif
 
 if USE_HDF5
 AM_CPPFLAGS += $(HDF5_CFLAGS)
 sstsim_x_SOURCES += statapi/statoutputhdf5.cc
 sstinfo_x_SOURCES += statapi/statoutputhdf5.cc
+sstunit_SOURCES += statapi/statoutputhdf5.cc
 sstsim_x_LDADD += $(HDF5_LDFLAGS) $(HDF5_LIBS)
 sstinfo_x_LDADD += $(HDF5_LDFLAGS) $(HDF5_LIBS)
+sstunit_LDADD += $(HDF5_LDFLAGS) $(HDF5_LIBS)
 endif
+
+#include ../../../test/Makefile.inc

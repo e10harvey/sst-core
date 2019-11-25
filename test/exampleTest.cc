@@ -9,18 +9,20 @@
 // information, see the LICENSE file in the top level directory of the
 // distribution.
 
-/* #include <sst_config.h>
+#include <sst_config.h>
 #include <sst/core/rankInfo.h>
- */
+#include <sst/core/config.h>
+
 #include "CppUTest/TestHarness.h"
 //#include "CppUTest/Test"
 #include "CppUTest/CommandLineTestRunner.h"
 
-/* using namespace SST; */
+using namespace SST;
+using namespace SST::Core;
 
 TEST_GROUP(Example)
 {
-/*     void setup()
+     void setup()
     {
         int myrank = 0;
         RankInfo world_size(1, 1);
@@ -32,7 +34,7 @@ TEST_GROUP(Example)
     void teardown()
     {
 
-    } */
+    }
 };
 
 TEST(Example, createComponent)
