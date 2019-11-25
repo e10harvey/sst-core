@@ -20,26 +20,38 @@
 using namespace SST;
 using namespace SST::Core;
 
+int myrank = 0;
+RankInfo world_size;
+RankInfo myRank;
+// LEAKS in libcxx Config cfg;
+
 TEST_GROUP(Example)
 {
      void setup()
     {
-        int myrank = 0;
-        RankInfo world_size(1, 1);
-        RankInfo myRank(0, 0);
-
-        Config cfg(world_size);
+        world_size = RankInfo(1, 1);
+        myRank = RankInfo(0, 0);
     }
 
     void teardown()
     {
-
+        world_size.~RankInfo();
+        myRank.~RankInfo();
     }
 };
 
-TEST(Example, createComponent)
+TEST(Example, badConfig)
 {
-    FAIL("Fail me!");
+    Config cfg(world_size);
+    CHECK(cfg.getNumThreads() < 0);
+    CHECK_EQUAL(cfg.getNumRanks(), 0);
+}
+
+TEST(Example, goodConfig)
+{
+    Config cfg(world_size);
+    CHECK(cfg.getNumThreads() > 0);
+    CHECK_EQUAL(cfg.getNumRanks(), world_size.rank);
 }
 
 int main(int argc, char **argv)
