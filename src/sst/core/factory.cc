@@ -45,6 +45,8 @@
 
 using namespace SST::Statistics;
 
+#define TEST_ART1 40
+
 namespace SST {
 
 Factory* Factory::instance = NULL;
