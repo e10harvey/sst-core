@@ -29,7 +29,7 @@ pipeline {
             steps {
                 echo 'Testing..'
                 sh 'pwd; ls'
-                sh './src/sst/core/sstunit -ojunit || true'
+                sh './src/sst/core/sstunit -n goodConfig -ojunit || true'
                 junit '*.xml'
             }
         }
