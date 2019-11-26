@@ -16,10 +16,7 @@ pipeline {
             steps {
                 echo 'Building..'
                 sh 'env PATH=/usr/local/bin:$PATH ./autogen.sh'
-                sh 'export INSTALL_DIR=$(date "+%Y/%m/%d/%H:%M:%S")'
-                sh 'echo INSTALL_DIR=$INSTALL_DIR'
-                sh 'mkdir -p $PWD-installs/$INSTALL_DIR'
-                sh './configure --prefix=$PWD-installs/$INSTALL_DIR'
+                sh 'export INSTALL_DIR=$(date "+%Y/%m/%d/%H:%M:%S"); mkdir -p $PWD-installs/$INSTALL_DIR; ./configure --prefix=$PWD-installs/$INSTALL_DIR'
                 sh 'make -j4'
                 archiveArtifacts artifacts: 'src/sst/core/*.o, src/sst/core/**/*.o, src/sst/core/libltdl/.libs/*.a', fingerprint: true
             }
