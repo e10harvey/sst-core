@@ -185,7 +185,6 @@ AC_CONFIG_FILES([
   src/sst/core/Makefile
   src/sst/core/libltdl/Makefile
   src/sst/core/build_info.h:src/sst/core/build_info.h.in
-  test/Makefile
 ])
 AC_OUTPUT
 
@@ -200,7 +199,7 @@ if test "x$SSTCORE_GIT_HEADSHA" != "x$PACKAGE_VERSION"; then
 printf "%38s : %s\n" "Git Branch" "$SSTCORE_GIT_BRANCH"
 printf "%38s : %s\n" "Git HEAD SHA" "$SSTCORE_GIT_HEADSHA"
 printf "%38s : %s\n" "Branch Commit Count" "$SSTCORE_GIT_COMMITCOUNT"
-else 
+else
 printf "%38s : %s\n" "Version" "SST-Core $PACKAGE_VERSION"
 fi
 printf "%38s : %s\n" "Prefix" "$prefix"
@@ -251,5 +250,4 @@ else
     printf "%38s : No\n" "libz compression library"
 fi
 
-echo "-------------------------------------------------------" 
-
+echo "-------------------------------------------------------"

@@ -1,6 +1,5 @@
 #!/bin/bash
-env | grep PATH
-which glibtool
+
 if [ -z $LIBTOOLIZE ] ; then
     LIBTOOLIZE=$(type -P libtoolize)
     if [ -z $LIBTOOLIZE ] ; then
