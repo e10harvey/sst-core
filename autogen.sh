@@ -1,5 +1,6 @@
 #!/bin/bash
-
+env | grep PATH
+which glibtool
 if [ -z $LIBTOOLIZE ] ; then
     LIBTOOLIZE=$(type -P libtoolize)
     if [ -z $LIBTOOLIZE ] ; then
@@ -37,4 +38,3 @@ autoheader
 autoconf
 automake --foreign --add-missing --include-deps
 autoreconf --force --install
-
