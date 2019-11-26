@@ -19,7 +19,7 @@ pipeline {
                 sh 'mkdir -p $PWD-installs/$(date "+%Y/%m/%d/%H:%M:%S")'
                 sh './configure --prefix=$PWD-installs/$(date "+%Y/%m/%d/%H:%M:%S")'
                 sh 'make'
-                archiveArtifacts 'src/sst/core/*.o, src/sst/core/**/*.o, src/sst/core/libltdl/.libs/*.a', fingerprint: true
+                archiveArtifacts artifacts: 'src/sst/core/*.o, src/sst/core/**/*.o, src/sst/core/libltdl/.libs/*.a', fingerprint: true
             }
         }
         stage('Test') {
