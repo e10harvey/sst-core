@@ -15,6 +15,10 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building..'
+
+                echo 'Point to automake, libtool, etc.'
+                sh 'export PATH=/usr/local/bin:/usr/bin:$PATH'
+                
                 sh 'env; pwd; ls; ./autogen.sh'
                 sh 'mkdir -p $PWD-installs/$(date "+%Y/%m/%d/%H:%M:%S")'
                 sh './configure --prefix=$PWD-installs/$(date "+%Y/%m/%d/%H:%M:%S")'
